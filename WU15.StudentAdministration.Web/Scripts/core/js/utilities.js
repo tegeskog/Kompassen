@@ -186,6 +186,7 @@ var Page = new function Page() {
         });
     }
 
+    // render coursForm
     Page.renderCourseDetails = function (course) {
         // Hide the default view.
         configuration.defaultPlaceholder.hide();
@@ -209,6 +210,30 @@ var Page = new function Page() {
 
         // Display the details panel.
         configuration.courseDetailsPlaceholder.fadeIn(500);
+    }
+
+    // render studentForm
+    Page.renderStudentDetails = function (student) {
+        // Hide the default view.
+        configuration.defaultPlaceholder.hide();
+
+        // Map all form values from the Student object to the form.
+        var form = configuration.studentListPlaceholder.find("form")[0];
+        $(form["id"]).val(student.id);
+        $(form["firstName"]).val(student.firstName);
+        $(form["lastName"]).val(student.lastName);
+
+        // Set the details panel top header text.
+        $(form).find('[name=title]').text(student.name);
+
+        // Render the registered students.
+        Page.renderCourseDetailsStudentList(student);
+
+        // Render and fill the student select list.
+        Page.renderstudentDetailsStudentSelectList();
+
+        // Display the details panel.
+        configuration.studentDetailsPlaceholder.fadeIn(500);
     }
 
     Page.renderCourseDetailsStudentList = function (course) {
@@ -283,7 +308,7 @@ var Page = new function Page() {
                 Page.deselectMenu();
 
                 // Display the default contents.
-                Page.displayDefault();
+                //Page.displayDefault();
             },
             error: function (jqXHR, textStatus, errorThrown) {
             }
@@ -378,7 +403,7 @@ var Page = new function Page() {
                 configuration.courseDetailsPlaceholder.hide();
                 configuration.courseListPlaceholder.hide();
                 configuration.studentListPlaceholder.hide();
-
+                
                 Page.displayDefault();
 
                 break;
@@ -402,10 +427,19 @@ var Page = new function Page() {
                 configuration.courseDetailsPlaceholder.hide();
                 configuration.defaultPlaceholder.hide();
                 configuration.courseListPlaceholder.hide();
+                configuration.studentListPlaceholder.hide();
 
                 var course = Page.getCourseTemplate();
                 Page.renderCourseDetails(course);
 
+                break;
+            case "addStudent":
+                configuration.courseDetailsPlaceholder.hide();
+                configuration.defaultPlaceholder.hide();
+                configuration.courseListPlaceholder.hide();
+                configuration.studentListPlaceholder.hide();
+
+                Page.renderStudentDetails();
                 break;
             default:
                 configuration.courseDetailsPlaceholder.hide();
