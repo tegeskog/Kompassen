@@ -5,15 +5,16 @@
 
 
     <link href="Content/bootstrap.css" rel="stylesheet" />
-    <link href="Content/core/style.css" rel="stylesheet" />
+    <link href="Content/core1/style.css" rel="stylesheet" />
 
     <script src="Scripts/jquery-2.1.4.js"></script>
     <script src="Scripts/bootstrap.js"></script>
-    <script src="Scripts/Core/js/utilities.js"></script>
-    <script src="Scripts/Core/js/app.js"></script>
+    <script src="Scripts/core1/app.js"></script>
+    <script src="Scripts/core1/utilities.js"></script>
 
 </head>
 <body>
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
 
@@ -43,11 +44,64 @@
 
         <div id="defaultPlaceholder"></div>
 
+        <div id="studentDetailsPlaceholder" style="max-width: 675px;">
+            <form id="studentDetailsForm">
+                <input type="hidden" name="id" value="0" />
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span name="title"></span></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div style="float: left; padding: 10px; padding-top: 0px; padding-bottom: 0px;">
+                            <!-- - -->
+                            <div class="well well-sm">
+                                <div class="form-group">
+                                    <label>Förnamn</label>
+                                    <input type="text" class="form-control" placeholder="Förnamn" name="firstName">
+                                </div>
+                                <div class="form-group">
+                                    <label>Efternamn</label>
+                                    <input type="text" class="form-control" name="lastName" placeholder="Efternamn">
+                                </div>
+                            </div>
+                            <!-- - -->
+                        </div>
+                        <div style="float: left; padding: 10px; padding-top: 0px; padding-bottom: 0px;">
+                            <div class="well well-sm">
+                                <!--Students-->
+                                <div>
+                                    <p>Kurser</p>
+                                    <!--Add new-->
+                                    <div style="float: left; padding: 3px; padding-left: 0px;">
+                                        <select class="form-control" id="studentDetailsCourseSelectList"></select>
+                                    </div>
+                                    <div style="float: left; padding: 3px;">
+                                        <button type="button" id="registerSelectedCourseButton" class="btn btn-primary btn-sm">Registrera</button>
+                                    </div>
+                                    <div style="clear: both;"></div>
+
+                                    <div class="list-group" id="studentDetailsCourseListPlaceholder">
+                                        List of courses currently assigned the this student.
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear: both; padding: 10px; padding-top: 0px;">
+                            <button type="submit" class="btn btn-success">Save</button>
+                            <button type="button" id="courseDetailsCancelButton" class="btn btn-warning">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+
         <!-- The default view. A list of all courses and students. -->
         <div id="courseDetailsPlaceholder" style="max-width: 675px;">
             <form id="courseDetailsForm">
                 <input type="hidden" name="id" value="0" />
-                <input type="hidden" name="schoolNo" value="c08bdab7-ed3d-4048-8338-d4f14f2770a8" />
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -101,13 +155,16 @@
                                     <div class="list-group" id="courseDetailsStudentListPlaceholder">
                                         List of students currently assigned the this course.
                                     </div>
+
+
+
                                 </div>
                             </div>
                         </div>
 
                         <div style="clear: both; padding: 10px; padding-top: 0px;">
-                            <button type="submit" class="btn btn-success">Spara</button>
-                            <button type="button" id="courseDetailsCancelButton" class="btn btn-warning">Cancel</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                            <button type="button" id="courseDetailsCancelButton" class="btn btn-warning">Close</button>
                         </div>
 
                     </div>
@@ -128,7 +185,6 @@
                 <div class="panel-body">
                     <form id="courseListAddCourseForm">
                         <input type="hidden" name="id" value="0" />
-                        <input type="hidden" name="schoolNo" value="c08bdab7-ed3d-4048-8338-d4f14f2770a8" />
 
                         <div class="form-group form-input-container" style="float: left;">
                             <label>Namn</label>
@@ -174,61 +230,56 @@
                         <!-- Content rows -->
                     </tbody>
                 </table>
-            </div>
-
+            </div>        
         </div>
-
-        <!-- A list of all Student. -->
-        <div id="studentDetailsPlaceholder">
-
-            <div class="panel panel-default">
-                <div class="panel-heading" style="overflow: auto">
-                    <div style="float: left; overflow: auto">Studenter</div>
-                    <div style="float: right; overflow: auto">+</div>
-                </div>
-
-                <div class="panel-body">
-                    <form id="studentListAddCourseForm">
-                        <input type="hidden" name="id" value="0" />
-                        <input type="hidden" name="schoolNo" value="c08bdab7-ed3d-4048-8338-d4f14f2770a8" />
-
-                        <div class="form-group form-input-container" style="float: left;">
-                            <label>Namn</label>
-                            <br />
-                            <input type="text" name="firstName" class="form-control" />
-                        </div>
-
-                        <div class="form-group form-input-container" style="float: left;">
-                            <label>Efternamn</label>
-                            <br />
-                            <input type="text" name="lastName" class="form-control" />
-                        </div>
-
-                        <div class="form-group form-input-container" style="float: left;">
-                            <label>&nbsp;</label>
-                            <br />
-                            <button type="submit" class="btn btn-success">Spara</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-         </div>
-
         <!-- A list of all students. -->
         <div id="studentListPlaceholder">
-                <table id="studentListTable" class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Namn</th>
-                            <th>Eftername</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Content rows -->
-                    </tbody>
-                </table>
-            </div>
+
+          <div class="panel panel-default">
+              <div class="panel-heading" style="overflow: auto">
+                  <div style="float: left; overflow: auto">Studenter</div>
+                  <div style="float: right; overflow: auto">+</div>
+              </div>
+
+              <div class="panel-body">
+                  <form id="studentListAddCourseForm">
+                      <input type="hidden" name="id" value="0" />
+
+                      <div class="form-group form-input-container" style="float: left;">
+                          <label>Namn</label>
+                          <br />
+                          <input type="text" name="firstName" class="form-control" />
+                      </div>
+
+                      <div class="form-group form-input-container" style="float: left;">
+                          <label>Efternamn</label>
+                          <br />
+                          <input type="text" name="lastName" class="form-control" />
+                      </div>
+                      <div class="form-group form-input-container" style="float: left;">
+                          <label>&nbsp;</label>
+                          <br />
+                          <button type="submit" class="btn btn-success">Save</button>
+                      </div>
+                  </form>
+              </div>
+
+              <table id="studentListTable" class="table">
+                  <thead>
+                      <tr>
+                          <th>Id</th>
+                          <th>Namn</th>
+                          <th>Efternamn</th>
+                          <th>Ändra</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Content rows -->
+                  </tbody>
+              </table>
+          </div>
+
+        </div>
 
         <hr>
 
