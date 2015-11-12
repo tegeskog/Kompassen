@@ -128,8 +128,8 @@ var Page = new function Page() {
 
                 if (courses[courseIndex].students.length > 0) {
                     for (var subIndex = 0; subIndex < courses[courseIndex].students.length; subIndex++) {
-                        item += "<div class='student-list'>";
-                        item += "<a href='#' class='list-group-item' data-item-id='" + courses[courseIndex].students[subIndex].id + "'>"
+                        item += "<div id='toggler'class='effect'>";
+                        item += "<a id='toggle' href='#' class='list-group-item' data-item-id='" + courses[courseIndex].students[subIndex].id + "'>"
                             + courses[courseIndex].students[subIndex].firstName + " " + courses[courseIndex].students[subIndex].lastName + "</a>";
                         item += "</div>";
                     }

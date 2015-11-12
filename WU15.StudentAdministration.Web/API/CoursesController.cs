@@ -12,9 +12,9 @@ namespace WU15.StudentAdministration.Web.API
     public class CoursesController : ApiController
     {
         [HttpGet]
-        public IEnumerable<Course> Get(string sid)
+        public IEnumerable<Course> Get()
         {            
-            return MvcApplication.Courses.Where(x => x.SchoolNo.Equals(sid));
+            return MvcApplication.Courses;
         }
 
         public Course Get(int id)

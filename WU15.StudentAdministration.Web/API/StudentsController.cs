@@ -10,26 +10,58 @@ namespace WU15.StudentAdministration.Web.API
 {
     public class StudentsController : ApiController
     {
+        [HttpGet]
         public IEnumerable<Student> Get()
         {            
             return MvcApplication.Students;
         }
 
+        [HttpGet]
         public Student Get(int id)
         {
             return MvcApplication.Students.FirstOrDefault(x => x.Id == id);
         }
 
+        [HttpPost]
         public string Post(Student student)
         {
             if (student.Id == 0)
             {
-                var id = MvcApplication.Students.Max(x => x.Id) + 1;
-                student.Id = id;
+                if (MvcApplication.Courses.Any())
+                {
+                    var id = MvcApplication.Students.Max(x => x.Id) + 1;
+                    student.Id = id;
+                }
+                else
+                {
+                    student.Id = 1;
+                }
             }
+            else
+            {
+                var savedIndex = MvcApplication.Students.FindIndex(x => x.Id == student.Id);
+                MvcApplication.Students.RemoveAt(savedIndex);
+            }
+            
             MvcApplication.Students.Add(student);
 
-            return string.Format("{0} {1}", student.FirstName, student.LastName);       
+
+            
+       
+            return string.Format("{0}{1}", student.FirstName, student.LastName);
+
+
+
+            //return student.Name;
+
+            //if (student.Id == 0)
+            //{
+            //    var id = MvcApplication.Students.Max(x => x.Id) + 1;
+            //    student.Id = id;
+            //}
+            //MvcApplication.Students.Add(student);
+
+            //return string.Format("{0} {1}", student.FirstName, student.LastName);       
         }
 
         [HttpDelete]

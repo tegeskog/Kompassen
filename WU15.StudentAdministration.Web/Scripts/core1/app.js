@@ -30,6 +30,7 @@ $(document).ready(function () {
         
             $(this).css('background-color', '#D7FFFF');
             $(this).text('Inaktiverad');
+            
        
         
     });
@@ -58,15 +59,17 @@ $(document).ready(function () {
         var isToggleVisability = $(event.target).hasClass("glyphicon-user");
         var isCourse = $(event.target).hasClass("data-course-item");
         var id = $(event.target).data("itemId");
-
+        
         //debugger;
         if (isToggleVisability) {
-
-            $(".student-list").toggle();
-            $(".glyphicon").css("ackground-color", "green");
+            debugger;
             
-            console.log("Fungerar mycket bra!!!!");
-            console.log("[#defaultPlaceholder.click]: Course list clicked: " + id);
+
+            $(".effect").slideToggle("slow");
+
+
+            //console.log("Fungerar mycket bra!!!!");
+            //console.log("[#defaultPlaceholder.click]: Course list clicked: " + id);
         }
         if (isUser) {
             //var id = $(event.target).data("itemId");
