@@ -17,7 +17,7 @@ namespace WU15.StudentAdministration.Web.Models
         
         public string Credits { get; set; }
 
-        public string Active { get; set; }
+        public bool Active { get; set; }
 
         public IEnumerable<Student> Students { get; set; }
 

@@ -121,9 +121,14 @@ var Page = new function Page() {
                     + "</a>";
                 item += "<p class='list-group-item course-item-info'>Kursstart " + courses[courseIndex].term + " " + courses[courseIndex].year
                     + "<a href='#'" + "style='float: right'>"
+                    + "<span id='aktiv' data-item-id='" + courses[courseIndex].active + "'>" + courses[courseIndex].active + "</span>";
                 item += "<span id='hide-button' data-item-id='" + courses[courseIndex].id + "' class='list-group-addon glyphicon glyphicon-user'></span>&nbsp;"
                     + "</a>" + "</p>"; // The user icon.
 
+                if (!courses[courseIndex].active) {
+                    $("#aktiv").css("background-color: red");
+                }
+                
                 // Students
 
                 if (courses[courseIndex].students.length > 0) {
@@ -139,7 +144,7 @@ var Page = new function Page() {
                 item += "</div>";
                 item += "</div>";
             }
-
+            
             item += "</div>";
             view += item;
         }
@@ -202,21 +207,11 @@ var Page = new function Page() {
             type: "GET",
             url: configuration.coursesUrl + id
         }).done(function (data) {
-            //debugger;
+          
+            data.active = !data.active;
+            console.log(data.active);
 
-            var active = data.active;
-            if (active == "Active") {
-                console.log("Aktive!!!!");
-                active == "Inactive";
-            }
-            else if (active == "Inactive") {
-                console.log("Inaktive!!!!");
-                active == "Active";
-                $("#btn-activate").css("background-color", "#D7FFFF");
-
-            }
-
-            console.log(active);
+            
             Page.saveCourseDetails(data);
             //Page.renderCourseDetails(data);
 

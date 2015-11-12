@@ -23,13 +23,14 @@ $(document).ready(function () {
 
     // Inaktivate Course
     $("#courseListTable").on("click", "#btn-activate", function (event) {
-        //debugger;
-        var test = $(event.target).hasClass("btn-aktive"),
-            id = $(event.target).data("itemId");
-            $(this).css('background-color', '#D7FFFF');
-            $(this).text('Inaktiverad');
-          
-            Page.activatCourseDetails(id);
+
+        var id = $(event.target).data("itemId");
+        Page.activatCourseDetails(id);
+        var test = $(event.target).hasClass("btn-aktive");
+        
+        $(this).css('background-color', '#D7FFFF');
+        $(this).text('Inaktiverad');
+
         // Hämta kurs
         // Kolla om kursen är aktiv
         // Om aktiv gör om till inaktiv kurs
