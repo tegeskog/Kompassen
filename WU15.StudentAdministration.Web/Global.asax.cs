@@ -47,7 +47,7 @@ namespace WU15.StudentAdministration.Web
                 Name = "Pedagogik 1",
                 Term = "VT",
                 Year = "2015",
-                Active = "Active"
+                Active = "Inactive"
             };
             Courses.Add(course);
 

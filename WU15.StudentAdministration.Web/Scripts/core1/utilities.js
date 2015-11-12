@@ -194,8 +194,39 @@ var Page = new function Page() {
         configuration.studentListPlaceholder.fadeIn(500);
 
     }
-    // When you editing a course
 
+    Page.activatCourseDetails = function (id) {
+        console.log("[Page.displayCourseDetails]: Fetching item having id: " + id);
+
+        $.ajax({
+            type: "GET",
+            url: configuration.coursesUrl + id
+        }).done(function (data) {
+            //debugger;
+
+            var active = data.active;
+            if (active == "Active") {
+                console.log("Aktive!!!!");
+                active == "Inactive";
+            }
+            else if (active == "Inactive") {
+                console.log("Inaktive!!!!");
+                active == "Active";
+                $("#btn-activate").css("background-color", "#D7FFFF");
+
+            }
+
+            console.log(active);
+            Page.saveCourseDetails(data);
+            //Page.renderCourseDetails(data);
+
+        }).error(function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.responseText || textStatus);
+        });
+    }
+
+
+    // When you editing a course
     Page.displayCourseDetails = function (id) {
         console.log("[Page.displayCourseDetails]: Fetching item having id: " + id);
 
@@ -203,8 +234,17 @@ var Page = new function Page() {
             type: "GET",
             url: configuration.coursesUrl + id
         }).done(function (data) {
+            //debugger;
 
-            console.log(data);
+            var active = data.active;
+            if (active == "Active") {
+                console.log("Aktive!!!!");
+            }
+            else if (active == "Inactive") {
+                console.log("Inaktive!!!!");
+            }
+            
+            console.log(active);
 
             Page.renderCourseDetails(data);
 
@@ -264,6 +304,7 @@ var Page = new function Page() {
         $(form["credits"]).val(course.credits);
         $(form["year"]).val(course.year);
         $(form["term"]).val(course.term);
+        $(form["active"]).val(course.active);
 
         // Set the details panel top header text.
         $(form).find('[name=title]').text(course.name);
