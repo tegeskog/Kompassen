@@ -22,17 +22,21 @@ $(document).ready(function () {
 
 
     // Inaktivate Course
-    $("#courseListTable").on("click", "#btn-activate", function () {
+    $("#courseListTable").on("click", "#btn-activate", function (event) {
         var test = $(event.target).hasClass("btn-aktive"),
             id = $(event.target).data("itemId");
-
-        debugger;
-        
             $(this).css('background-color', '#D7FFFF');
             $(this).text('Inaktiverad');
-            
-       
-        
+          
+
+        // Hämta kurs
+        // Kolla om kursen är aktiv
+        // Om aktiv gör om till inaktiv kurs
+        // Om inaktiv gör om till aktiv kurs
+        // Posta kursen igen
+
+            active = !active;
+            Page.saveCourseAndDisplayDefault(course);
     });
 
 
@@ -66,10 +70,6 @@ $(document).ready(function () {
             
 
             $(".effect").slideToggle("slow");
-
-
-            //console.log("Fungerar mycket bra!!!!");
-            //console.log("[#defaultPlaceholder.click]: Course list clicked: " + id);
         }
         if (isUser) {
             //var id = $(event.target).data("itemId");
