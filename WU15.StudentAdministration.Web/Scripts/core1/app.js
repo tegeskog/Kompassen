@@ -65,10 +65,7 @@ $(document).ready(function () {
         var test = $(event.target).hasClass("btn-aktive"),
             id = $(event.target).data("itemId");
             student = $(event.target).hasClass("list-group-item");
-            debugger;
             Page.displayStudentDetails(id);
-
-
     });
 
     //Page.displayStudentDetails(id);
@@ -216,11 +213,9 @@ $(document).ready(function () {
     $("#courseListAddCourseForm").submit(function (event) {
         event.preventDefault();
         console.log("[courseListAddCourseForm.submit]: Submitted the new course form.");
-        debugger;
         var course = Utilities.formToJson(this);
         course.students = [];
         $(this)[0].reset();
-
         Page.saveCourseDetails(course);
     });
 
@@ -228,7 +223,6 @@ $(document).ready(function () {
     $("#studentListAddCourseForm").submit(function (event) {
         event.preventDefault();
         console.log("[studentListAddCourseForm.submit]: Submitted the new Student form.");
-        debugger;
         var student = Utilities.formToJson(this);
         student.students = [];
         $(this)[0].reset();

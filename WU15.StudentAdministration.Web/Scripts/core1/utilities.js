@@ -81,6 +81,18 @@ var Page = new function Page() {
             type: "GET",
             url: configuration.studentsUrl
         }).done(function (data) {
+            /// Sort data to name accending order.
+            data.sort(function (a, b) {
+
+                if (a.id > b.id) {
+                    return 1;
+                }
+                if (a.id < b.id) {
+                    return -1
+                }
+
+                return 0;
+            });
             console.log("[Page.displayStudentList]: Number of items returned: " + data.length);
 
             // Render the courses.
@@ -260,10 +272,9 @@ var Page = new function Page() {
             type: "GET",
             url: configuration.studentsUrl + id
         }).done(function (data) {
-
-            console.log(data);
-
-
+            
+            console.log("Kolla detta " + data);
+            
            
             Page.renderStudentDetails(data);
 
@@ -397,13 +408,32 @@ var Page = new function Page() {
 
     }
 
+
+
+
+
+
+
+
+
+
     Page.renderCourseDetailsStudentSelectList = function () {
         ///
         $.ajax({
             type: "GET",
             url: configuration.studentsUrl
         }).done(function (data) {
+            data.sort(function (a, b) {
 
+                if (a.id > b.id) {
+                    return 1;
+                }
+                if (a.id < b.id) {
+                    return -1
+                }
+
+                return 0;
+            });
             configuration.courseDetailsStudentSelectList.empty();
             $.each(data, function () {
                 Page.appendStudentSelectOption(this);
