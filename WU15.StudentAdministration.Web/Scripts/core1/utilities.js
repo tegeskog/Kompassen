@@ -263,6 +263,8 @@ var Page = new function Page() {
 
             console.log(data);
 
+
+           
             Page.renderStudentDetails(data);
 
         }).error(function (jqXHR, textStatus, errorThrown) {
@@ -275,7 +277,8 @@ var Page = new function Page() {
         configuration.defaultPlaceholder.hide();
         
         // Map all form values from the course object to the form.
-        var form = configuration.studentDetailsPlaceholder.find("form")[0];
+        var form = configuration.studentListPlaceholder.find("form")[0];
+        //var form = configuration.studentDetailsPlaceholder.find("form")[0];
         $(form["id"]).val(student.id);
         $(form["firstName"]).val(student.firstName);
         $(form["lastName"]).val(student.lastName);
@@ -291,7 +294,7 @@ var Page = new function Page() {
         Page.renderCourseDetailsStudentSelectList();
 
         // Display the details panel.
-        configuration.studentDetailsPlaceholder.fadeIn(500);
+        //configuration.studentDetailsPlaceholder.fadeIn(500);
     }
 
     Page.renderCourseDetails = function (course) {
@@ -455,8 +458,6 @@ var Page = new function Page() {
         });
 
     }
-
-
 
 
     Page.saveStudentAndDisplayDefault = function (student) {
