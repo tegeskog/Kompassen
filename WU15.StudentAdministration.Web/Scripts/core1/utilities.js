@@ -47,6 +47,7 @@ var Page = new function Page() {
 
                 return 0;
             });
+         
 
             Page.renderDefault(data);
 
@@ -124,25 +125,29 @@ var Page = new function Page() {
                     + "<span id='aktiv' data-item-id='" + courses[courseIndex].active + "'>" + courses[courseIndex].active + "</span>";
                 item += "<span id='hide-button' data-item-id='" + courses[courseIndex].id + "' class='list-group-addon glyphicon glyphicon-user'></span>&nbsp;"
                     + "</a>" + "</p>"; // The user icon.
-
-                if (!courses[courseIndex].active) {
-                    $("#aktiv").css("background-color: red");
+               
+                var x = courses[courseIndex].active;
+                debugger;
+                if (x == false) {
+                    $(".course-item-info").css("background", "#ff0000");
                 }
                 
                 // Students
 
                 if (courses[courseIndex].students.length > 0) {
                     for (var subIndex = 0; subIndex < courses[courseIndex].students.length; subIndex++) {
-                        item += "<div id='toggler'class='effect'>";
+                        item += "<div id='toggler'class='effect' style='display: none;' data-item-id='" + courses[courseIndex].students[subIndex].id + "'>";
                         item += "<a id='toggle' href='#' class='list-group-item' data-item-id='" + courses[courseIndex].students[subIndex].id + "'>"
-                            + courses[courseIndex].students[subIndex].firstName + " " + courses[courseIndex].students[subIndex].lastName + "</a>";
-                        item += "</div>";
+                            + courses[courseIndex].students[subIndex].firstName + " " + courses[courseIndex].students[subIndex].lastName
+                            + "</a>" + "</div>";
+                        
                     }
                 } else {
                     item += "<span class='list-group-item'>Kursen har inga studenter registrerade.</span>";
                 }
                 item += "</div>";
                 item += "</div>";
+                
             }
             
             item += "</div>";
@@ -162,13 +167,14 @@ var Page = new function Page() {
         
         var html = "";
         for (var index = 0; index < courses.length; index++) {
-            html += "<tr id='test'>";
+            html += "<tr id=data-item-id='" + courses[index].id + "'>";
             html += "<td>" + courses[index].name + "</td>";
             html += "<td>" + courses[index].credits + "</td>";
             html += "<td>" + courses[index].students.length + "</td>";
             html += "<td>" + "<button data-item-id='"
                  + courses[index].id
-                 + "' id='btn-activate' type='button' class='btn btn-aktive' style='background-color: lightblue'>Aktiverad</button>" + "</td>";
+                 + "' id='btn-activate' type='button' class='btn btn-aktive' data-item-active='"
+                 + courses[index].active + "' >Aktiverad</button>" + "</td>";
             html += "</tr>";
 
         }
@@ -188,6 +194,7 @@ var Page = new function Page() {
             html += "<td>" + students[index].id + "</td>";
             html += "<td>" + students[index].firstName + "</td>";
             html += "<td>" + students[index].lastName + "</td>";
+            html += "<td>" + students[index].ssn + "</td>";
             html += "<td>" + "<button data-item-id='"
                  + students[index].id
                  + "' id='btn-activate' type='button' class='btn btn-aktive' style='background-color: lightblue'>Editera</button>" + "</td>";
@@ -210,10 +217,8 @@ var Page = new function Page() {
           
             data.active = !data.active;
             console.log(data.active);
-
-            
             Page.saveCourseDetails(data);
-            //Page.renderCourseDetails(data);
+          
 
         }).error(function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR.responseText || textStatus);
@@ -274,6 +279,7 @@ var Page = new function Page() {
         $(form["id"]).val(student.id);
         $(form["firstName"]).val(student.firstName);
         $(form["lastName"]).val(student.lastName);
+        $(form["ssn"]).val(student.ssn);
 
         // Set the details panel top header text.
         $(form).find('[name=title]').text(student.name);

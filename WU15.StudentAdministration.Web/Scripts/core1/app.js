@@ -22,22 +22,40 @@ $(document).ready(function () {
 
 
     // Inaktivate Course
-    $("#courseListTable").on("click", "#btn-activate", function (event) {
 
-        var id = $(event.target).data("itemId");
-        Page.activatCourseDetails(id);
-        var test = $(event.target).hasClass("btn-aktive");
+    $("#courseListTable").on("click", function (event) {
+        event.preventDefault();
+        console.log("$(event.target).data('item-id'): " + $(event.target).data('item-id'));
+        console.log("$(event.target).data('item-active'): " + $(event.target).data('item-active'));
+        debugger;
+        var id = $(event.target).data('item-id');
+        var active = $(event.target).data('item-active');
         
-        $(this).css('background-color', '#D7FFFF');
-        $(this).text('Inaktiverad');
+        Page.activatCourseDetails(id);
 
-        // Hämta kurs
-        // Kolla om kursen är aktiv
-        // Om aktiv gör om till inaktiv kurs
-        // Om inaktiv gör om till aktiv kurs
-        // Posta kursen igen
-
+        if (!active) {
+            $("#btn-activate").css("background-color", "red");
+        }
     });
+
+
+
+    //$("#courseListTable").on("click", "#btn-activate", function (event) {
+
+    //    var id = $(event.target).data("itemId");
+    //    Page.activatCourseDetails(id);
+    //    var test = $(event.target).hasClass("btn-aktive");
+        
+    //    $(this).css('background-color', '#D7FFFF');
+    //    $(this).text('Inaktiverad');
+
+    //    // Hämta kurs
+    //    // Kolla om kursen är aktiv
+    //    // Om aktiv gör om till inaktiv kurs
+    //    // Om inaktiv gör om till aktiv kurs
+    //    // Posta kursen igen
+
+    //});
 
 
 
@@ -67,8 +85,8 @@ $(document).ready(function () {
         //debugger;
         if (isToggleVisability) {
             debugger;
-            
 
+            //$(this).next(".effect").toggle("slow");
             $(".effect").slideToggle("slow");
         }
         if (isUser) {
@@ -101,12 +119,14 @@ $(document).ready(function () {
             student = {
                 id: $(this).data("id"),
                 firstName: $(this).data("firstName"),
-                lastName: $(this).data("lastName")
+                lastName: $(this).data("lastName"),
+                ssn: $(this).data("ssn")
             }
             course.students.push(student);
         });
 
         Page.saveStudentDetails(student);
+        
         
     });
 

@@ -91,7 +91,8 @@ namespace WU15.StudentAdministration.Web
             {
                 Id = 1,
                 FirstName = "Kalle",
-                LastName = "Bengtsson"
+                LastName = "Bengtsson",
+                Ssn = "750505-2455"
             };
             Students.Add(student);
 
@@ -99,7 +100,8 @@ namespace WU15.StudentAdministration.Web
             {
                 Id = 2,
                 FirstName = "Eva",
-                LastName = "Andersson"
+                LastName = "Andersson",
+                Ssn = "850101-2455"
             };
             Students.Add(student);
 
@@ -107,7 +109,8 @@ namespace WU15.StudentAdministration.Web
             {
                 Id = 3,
                 FirstName = "Ylva",
-                LastName = "Nordsson"
+                LastName = "Nordsson",
+                Ssn = "800202-2222"
             };
             Students.Add(student);
 
@@ -115,7 +118,8 @@ namespace WU15.StudentAdministration.Web
             {
                 Id = 4,
                 FirstName = "Evy",
-                LastName = "Carlsson"
+                LastName = "Carlsson",
+                Ssn = "901010-9999"
             };
             Students.Add(student);
 
@@ -123,7 +127,8 @@ namespace WU15.StudentAdministration.Web
             {
                 Id = 5,
                 FirstName = "Lisa",
-                LastName = "Olofsson"
+                LastName = "Olofsson",
+                Ssn = "840506-8888"
             };
             Students.Add(student);
 
@@ -131,7 +136,8 @@ namespace WU15.StudentAdministration.Web
             {
                 Id = 6,
                 FirstName = "Robert",
-                LastName = "Tovek"
+                LastName = "Tovek",
+                Ssn = "770610-4444"
             };
             Students.Add(student);
         }   
