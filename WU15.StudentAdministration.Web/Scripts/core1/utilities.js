@@ -134,34 +134,32 @@ var Page = new function Page() {
                     + "</a>";
                 item += "<p class='list-group-item course-item-info'>Kursstart " + courses[courseIndex].term + " " + courses[courseIndex].year
                     + "<a href='#'" + "style='float: right'>"
-                    + "<span id='aktiv' data-item-id='" + courses[courseIndex].active + "'>" + courses[courseIndex].active + "</span>";
+                    + "<span id='aktiv' data-item-id='" + courses[courseIndex].active + "'>" + "</span>";
                 item += "<span id='hide-button' data-item-id='" + courses[courseIndex].id + "' class='list-group-addon glyphicon glyphicon-user'></span>&nbsp;"
-                    + "</a>" + "</p>"; // The user icon.
+                    + "</a>"
+                
+                    + "</p>"; // The user icon.
                
-                var x = courses[courseIndex].active;
-                debugger;
-                if (x == false) {
-                    $(".course-item-info").css("background", "#ff0000");
-                }
                 
                 // Students
-
                 if (courses[courseIndex].students.length > 0) {
                     for (var subIndex = 0; subIndex < courses[courseIndex].students.length; subIndex++) {
                         item += "<div id='toggler'class='effect' style='display: none;' data-item-id='" + courses[courseIndex].students[subIndex].id + "'>";
                         item += "<a id='toggle' href='#' class='list-group-item' data-item-id='" + courses[courseIndex].students[subIndex].id + "'>"
                             + courses[courseIndex].students[subIndex].firstName + " " + courses[courseIndex].students[subIndex].lastName
                             + "</a>" + "</div>";
-                        
                     }
                 } else {
                     item += "<span class='list-group-item'>Kursen har inga studenter registrerade.</span>";
                 }
+                // If course is not active write Inaktiv kurs...
+                var x = courses[courseIndex].active;
+                if (x == false) {
+                    item += "<h5 style='color: red; font-weight: bold'>Inaktiv Kurs</h5>";
+                }
                 item += "</div>";
                 item += "</div>";
-                
             }
-            
             item += "</div>";
             view += item;
         }
