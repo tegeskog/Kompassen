@@ -47,7 +47,7 @@ namespace WU15.StudentAdministration.Web
                 Name = "Pedagogik 1",
                 Term = "VT",
                 Year = "2015",
-                Active = false
+                Active = true
             };
             Courses.Add(course);
 
@@ -69,7 +69,7 @@ namespace WU15.StudentAdministration.Web
                 Name = "Datalogi 1",
                 Term = "VT",
                 Year = "2015",
-                Active = true
+                Active = false
             };
             Courses.Add(course);
 
@@ -92,7 +92,8 @@ namespace WU15.StudentAdministration.Web
                 Id = 1,
                 FirstName = "Kalle",
                 LastName = "Bengtsson",
-                Ssn = "750505-2455"
+                Ssn = "750505-2455",
+                Aktive_student = true
             };
             Students.Add(student);
 
@@ -101,7 +102,8 @@ namespace WU15.StudentAdministration.Web
                 Id = 2,
                 FirstName = "Eva",
                 LastName = "Andersson",
-                Ssn = "850101-2455"
+                Ssn = "850101-2455",
+                Aktive_student = false
             };
             Students.Add(student);
 
@@ -110,7 +112,8 @@ namespace WU15.StudentAdministration.Web
                 Id = 3,
                 FirstName = "Ylva",
                 LastName = "Nordsson",
-                Ssn = "800202-2222"
+                Ssn = "800202-2222",
+                Aktive_student = false
             };
             Students.Add(student);
 
@@ -119,7 +122,8 @@ namespace WU15.StudentAdministration.Web
                 Id = 4,
                 FirstName = "Evy",
                 LastName = "Carlsson",
-                Ssn = "901010-9999"
+                Ssn = "901010-9999",
+                Aktive_student = true
             };
             Students.Add(student);
 
@@ -128,7 +132,8 @@ namespace WU15.StudentAdministration.Web
                 Id = 5,
                 FirstName = "Lisa",
                 LastName = "Olofsson",
-                Ssn = "840506-8888"
+                Ssn = "840506-8888",
+                Aktive_student = true
             };
             Students.Add(student);
 

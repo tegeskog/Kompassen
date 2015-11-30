@@ -6,5 +6,6 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Ssn { get; set; }
+        public bool Aktive_student { get; set; }
     }
 }

@@ -57,8 +57,7 @@ $(document).ready(function () {
 
     //});
 
-
-
+   
     $("#studentListTable").on("click", "#btn-activate", function () {
         // Hämta student med id...
         // render to page
@@ -72,19 +71,16 @@ $(document).ready(function () {
     // Display course details for clicked course.
     $("#defaultPlaceholder").on("click", ".list-item", function (event) {
         
-
-        var isUser = $(event.target).hasClass("glyphicon-edit");
-        //var isUser = $(event.target).hasClass("list-group-item");
-        var isToggleVisability = $(event.target).hasClass("glyphicon-user");
+        var isToggleVisability = null;
+        var isUser = $(event.target).hasClass("glyphicon-edit");   
         var isCourse = $(event.target).hasClass("data-course-item");
         var id = $(event.target).data("itemId");
+        isToggleVisability = $(event.target).hasClass("glyphicon-user");
         
-        //debugger;
         if (isToggleVisability) {
+            var targetClick = $(event.target);
             debugger;
-
-            //$(this).next(".effect").toggle("slow");
-            $(".effect").slideToggle("slow");
+            $(".effect").siblings("div").slideToggle("slow");
         }
         if (isUser) {
             //var id = $(event.target).data("itemId");
@@ -97,9 +93,7 @@ $(document).ready(function () {
             console.log("[#defaultPlaceholder.click]: Course list clicked: " + id);
            
             Page.displayCourseDetails(id);
-        }
-
-        
+        } 
     });
 
      //Save the Student details.
@@ -150,7 +144,8 @@ $(document).ready(function () {
             student = {
                 id: $(this).data("id"),
                 firstName: $(this).data("firstName"),
-                lastName: $(this).data("lastName")
+                lastName: $(this).data("lastName"),
+                active: $(this).data("active")
             }
             course.students.push(student);
         });

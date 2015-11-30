@@ -94,6 +94,7 @@ var Page = new function Page() {
                 return 0;
             });
             console.log("[Page.displayStudentList]: Number of items returned: " + data.length);
+           
 
             // Render the courses.
             Page.renderStudentList(data);
@@ -137,29 +138,37 @@ var Page = new function Page() {
                     + "<span id='aktiv' data-item-id='" + courses[courseIndex].active + "'>" + "</span>";
                 item += "<span id='hide-button' data-item-id='" + courses[courseIndex].id + "' class='list-group-addon glyphicon glyphicon-user'></span>&nbsp;"
                     + "</a>"
-                
                     + "</p>"; // The user icon.
-                var x = courses[courseIndex].active;
+                
+                // Count how many students ther ar in the course
+                for (var y = 0; y < courses[courseIndex].students.length; y++){
+                    var studentslist = y++;
+                }
+                studentslist = studentslist - 1;
+                
+                item += "<a id='x' class='list-group-item course-item-student' data-item-id='" + courses[courseIndex].id + "'>" + "Kursen har " + y + " Studenter."+ "</a>"
+                //item += "<a id='x' class='list-group-item course-item-student' data-item-id='" + courses[courseIndex].id + "'>Visa Studenter</a>"
+               
                 
                 // Students
-                if(x == true){
+                var x = courses[courseIndex].active;
                     if (courses[courseIndex].students.length > 0) {
                         for (var subIndex = 0; subIndex < courses[courseIndex].students.length; subIndex++) {
-                            item += "<div id='toggler'class='effect' style='display: none;' data-item-id='" + courses[courseIndex].students[subIndex].id + "'>";
+                            item += "<div class='effect'  style='display: none;'data-item-id='" + courses[courseIndex].students[subIndex].id + "'>";
                             item += "<a id='toggle' href='#' class='list-group-item' data-item-id='" + courses[courseIndex].students[subIndex].id + "'>"
                                 + courses[courseIndex].students[subIndex].firstName + " " + courses[courseIndex].students[subIndex].lastName
-                                + "</a>" + "</div>";
+                                + "</a>"
+                                + "</div>";  
                         }
                     } else {
-                        item += "<span class='list-group-item'>Kursen har inga studenter registrerade.</span>";
+                        //debugger;
+                        //item += "<span class='list-group-item'>Kursen har inga studenter registrerade.</span>";
                     }
-                }
-                else { item += "<h5 style='color: red; font-weight: bold'>Inaktiv Kurs</h5>"; }
-                // If course is not active write Inaktiv kurs...
+                // If Not active course print out Inaktive kurs
+                  if (!x == true){
+                      item += "<h5 style='color: red; font-weight: bold'>Inaktiv Kurs</h5>";
+                  }
                 
-                //if (x == false) {
-                //    item += "<h5 style='color: red; font-weight: bold'>Inaktiv Kurs</h5>";
-                //}
                 item += "</div>";
                 item += "</div>";
             }
@@ -203,6 +212,8 @@ var Page = new function Page() {
 
         var html = "";
         for (var index = 0; index < students.length; index++) {
+           
+            
             html += "<tr data-item-id='" + students[index].id + "'>";
             html += "<td>" + students[index].id + "</td>";
             html += "<td>" + students[index].firstName + "</td>";
@@ -211,15 +222,19 @@ var Page = new function Page() {
             html += "<td>" + "<button data-item-id='"
                  + students[index].id
                  + "' id='btn-activate' type='button' class='btn btn-aktive' style='background-color: lightblue'>Editera</button>" + "</td>";
-
+            html += "<td>" + "<input id='aktiv_student' type='checkbox' checked='" + students[index].aktive_student + "'>" + "</td>";
             html += "</tr>";
+            
         }
+        
+        
+        
         tbody.append(html);
 
         configuration.studentListPlaceholder.fadeIn(500);
 
     }
-
+    // Aktivera en kurs
     Page.activatCourseDetails = function (id) {
         console.log("[Page.displayCourseDetails]: Fetching item having id: " + id);
 
@@ -232,6 +247,24 @@ var Page = new function Page() {
             console.log(data.active);
             Page.saveCourseDetails(data);
           
+
+        }).error(function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.responseText || textStatus);
+        });
+    }
+    // Aktivera en student
+    Page.activatStudentDetails = function (id) {
+        console.log("[Page.displayCourseDetails]: Fetching item having id: " + id);
+
+        $.ajax({
+            type: "GET",
+            url: configuration.studentUrl + id
+        }).done(function (data) {
+
+            data.active = !data.active;
+            console.log(data.active);
+            Page.saveStudentDetails(data);
+
 
         }).error(function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR.responseText || textStatus);
