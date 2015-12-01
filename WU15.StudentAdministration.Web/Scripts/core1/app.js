@@ -30,40 +30,26 @@ $(document).ready(function () {
         debugger;
         var id = $(event.target).data('item-id');
         var active = $(event.target).data('item-active');
-        
-        Page.activatCourseDetails(id);
 
         if (!active) {
-            $("#btn-activate").css("background-color", "red");
+            $(".btn-aktive").css("background-color", "red");
         }
-    });
-
-
-
-    //$("#courseListTable").on("click", "#btn-activate", function (event) {
-
-    //    var id = $(event.target).data("itemId");
-    //    Page.activatCourseDetails(id);
-    //    var test = $(event.target).hasClass("btn-aktive");
         
-    //    $(this).css('background-color', '#D7FFFF');
-    //    $(this).text('Inaktiverad');
-
-    //    // Hämta kurs
-    //    // Kolla om kursen är aktiv
-    //    // Om aktiv gör om till inaktiv kurs
-    //    // Om inaktiv gör om till aktiv kurs
-    //    // Posta kursen igen
-
-    //});
+        Page.activatCourseDetails(id);
+    });
 
    
     $("#studentListTable").on("click", "#btn-activate", function () {
         // Hämta student med id...
         // render to page
         var test = $(event.target).hasClass("btn-aktive"),
-            id = $(event.target).data("itemId");
+            id = $(event.target).data("itemId"),
+            active = $(event.target).data("itemActive"),
             student = $(event.target).hasClass("list-group-item");
+
+        debugger;
+        console.log("Kursen är : " + active);
+
             Page.displayStudentDetails(id);
     });
 
@@ -75,10 +61,12 @@ $(document).ready(function () {
         var isUser = $(event.target).hasClass("glyphicon-edit");   
         var isCourse = $(event.target).hasClass("data-course-item");
         var id = $(event.target).data("itemId");
-        isToggleVisability = $(event.target).hasClass("glyphicon-user");
-        
+        isToggleVisability = $(event.target).hasClass("glyphicon-user"); 
+        //isToggleVisability = $(event.target).hasClass("courseActive");
+
         if (isToggleVisability) {
-            var targetClick = $(event.target);
+
+            var click = $(event.target);
             debugger;
             $(".effect").siblings("div").slideToggle("slow");
         }
@@ -225,9 +213,27 @@ $(document).ready(function () {
         Page.saveStudentDetails(student);
     });
 
+    $("#studentListTable").on("change", "#aktiv", function (id) {
+        var id = $(event.target).data("itemId");
+        var check = $(event.target).is(":checked");
+        
+        if (check == true) {
+            var status = false;
+            console.log("Studenten " + id + " är : " + "aktiv");
+            Page.StudentStatus(id, status);
+            
+        }
+        else {
+            var status = true;
+            console.log("Studenten " + id + " är : " + "inaktiv");
+            Page.StudentStatus(id, status);
+            
+        }
+
+        console.log("Det fungerar : " + " " + check + id);
 
 
-
+    });
     // render a new page after register a new course
     $(document).on("courseSavedCustomEvent", function (event) {
         console.log("[courseSavedCustomEvent]: " + event.message.description);

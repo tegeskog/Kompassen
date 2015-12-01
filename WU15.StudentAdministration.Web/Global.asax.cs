@@ -93,7 +93,7 @@ namespace WU15.StudentAdministration.Web
                 FirstName = "Kalle",
                 LastName = "Bengtsson",
                 Ssn = "750505-2455",
-                Aktive_student = true
+                Active = true
             };
             Students.Add(student);
 
@@ -103,7 +103,7 @@ namespace WU15.StudentAdministration.Web
                 FirstName = "Eva",
                 LastName = "Andersson",
                 Ssn = "850101-2455",
-                Aktive_student = false
+                Active = false
             };
             Students.Add(student);
 
@@ -113,7 +113,7 @@ namespace WU15.StudentAdministration.Web
                 FirstName = "Ylva",
                 LastName = "Nordsson",
                 Ssn = "800202-2222",
-                Aktive_student = false
+                Active = false
             };
             Students.Add(student);
 
@@ -123,7 +123,7 @@ namespace WU15.StudentAdministration.Web
                 FirstName = "Evy",
                 LastName = "Carlsson",
                 Ssn = "901010-9999",
-                Aktive_student = true
+                Active = true
             };
             Students.Add(student);
 
@@ -133,7 +133,7 @@ namespace WU15.StudentAdministration.Web
                 FirstName = "Lisa",
                 LastName = "Olofsson",
                 Ssn = "840506-8888",
-                Aktive_student = true
+                Active = true
             };
             Students.Add(student);
 
@@ -142,7 +142,8 @@ namespace WU15.StudentAdministration.Web
                 Id = 6,
                 FirstName = "Robert",
                 LastName = "Tovek",
-                Ssn = "770610-4444"
+                Ssn = "770610-4444",
+                Active = true
             };
             Students.Add(student);
         }   

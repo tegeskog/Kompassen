@@ -65,7 +65,17 @@ var Page = new function Page() {
             url: configuration.coursesUrl
         }).done(function (data) {
             console.log("[Page.displayCourseList]: Number of items returned: " + data.length);
+            data.sort(function (a, b) {
 
+                if (a.name > b.name) {
+                    return 1;
+                }
+                if (a.name < b.name) {
+                    return -1
+                }
+
+                return 0;
+            });
             // Render the courses.
             Page.renderCourseList(data);
 
@@ -135,7 +145,7 @@ var Page = new function Page() {
                     + "</a>";
                 item += "<p class='list-group-item course-item-info'>Kursstart " + courses[courseIndex].term + " " + courses[courseIndex].year
                     + "<a href='#'" + "style='float: right'>"
-                    + "<span id='aktiv' data-item-id='" + courses[courseIndex].active + "'>" + "</span>";
+                    + "<span id='aktiv' data-item-active='" + courses[courseIndex].active + "'>" + "</span>";
                 item += "<span id='hide-button' data-item-id='" + courses[courseIndex].id + "' class='list-group-addon glyphicon glyphicon-user'></span>&nbsp;"
                     + "</a>"
                     + "</p>"; // The user icon.
@@ -195,8 +205,8 @@ var Page = new function Page() {
             html += "<td>" + courses[index].students.length + "</td>";
             html += "<td>" + "<button data-item-id='"
                  + courses[index].id
-                 + "' id='btn-activate' type='button' class='btn btn-aktive' data-item-active='"
-                 + courses[index].active + "' >Aktiverad</button>" + "</td>";
+                 + "' id='aktiv' type='button' class='btn btn-aktive' data-item-active='"
+                 + courses[index].active + "'>Aktiverad</button>" + "</td>";
             html += "</tr>";
 
         }
@@ -222,7 +232,13 @@ var Page = new function Page() {
             html += "<td>" + "<button data-item-id='"
                  + students[index].id
                  + "' id='btn-activate' type='button' class='btn btn-aktive' style='background-color: lightblue'>Editera</button>" + "</td>";
-            html += "<td>" + "<input id='aktiv_student' type='checkbox' checked='" + students[index].aktive_student + "'>" + "</td>";
+            if (students[index].active) {
+                html += "<td>" + "<input id='aktiv' type='checkbox' checked='checked' data-item-id='" + students[index].id + "'>" + "</td>";
+            } else {
+                html += "<td>" + "<input id='aktiv' type='checkbox' data-item-id='" + students[index].id + "'>"
+                 + "</td>";
+            }
+            
             html += "</tr>";
             
         }
@@ -234,6 +250,44 @@ var Page = new function Page() {
         configuration.studentListPlaceholder.fadeIn(500);
 
     }
+
+
+    // Changes Student Status
+    Page.StudentStatus = function (id, status) {
+
+        $.ajax({
+            type: "GET",
+            url: configuration.studentsUrl + id
+        }).done(function (data) {
+            //console.log("[Page.displayStudentList]: Number of items returned: " + data.length);
+            var student = data;
+            student.active = status;;
+            Page.saveStudentStatusDetails(student);
+
+        }).error(function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.responseText || textStatus);
+        });
+
+    }
+
+    // Saves Student Status
+    Page.saveStudentStatusDetails = function (student) {
+
+        $.ajax({
+            url: configuration.studentsUrl,
+            type: "POST",
+            data: JSON.stringify(student),
+            contentType: "application/json",
+            success: function (data, textStatus, jqXHR) {
+                console.log("[Page.saveStudentActiveDetails.success]: Results: " + data);
+                
+                Page.displayStudentList();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+
+    }
     // Aktivera en kurs
     Page.activatCourseDetails = function (id) {
         console.log("[Page.displayCourseDetails]: Fetching item having id: " + id);
@@ -242,9 +296,17 @@ var Page = new function Page() {
             type: "GET",
             url: configuration.coursesUrl + id
         }).done(function (data) {
-          
+            debugger;
             data.active = !data.active;
             console.log(data.active);
+
+            var aktiv = data.active;
+            if (aktiv) {
+                $("#aktiv").css("background: red");
+            }
+            else {
+                $("#aktiv").css("background-color", "green");
+            }
             Page.saveCourseDetails(data);
           
 
@@ -525,7 +587,7 @@ var Page = new function Page() {
 
 
     Page.saveStudentAndDisplayDefault = function (student) {
-        debugger;
+        
         $.ajax({
             url: configuration.studentUrl,
             type: "POST",
@@ -550,7 +612,7 @@ var Page = new function Page() {
     // Saves a course and does'nt do a view update.
 
     Page.saveCourseDetails = function (course) {
-
+        
         $.ajax({
             url: configuration.coursesUrl,
             type: "POST",
@@ -573,7 +635,7 @@ var Page = new function Page() {
 
     // Saves a student and does'nt do a view update.
     Page.saveStudentDetails = function (student) {
-
+        student.active = true;
         $.ajax({
             url: configuration.studentsUrl,
             type: "POST",
